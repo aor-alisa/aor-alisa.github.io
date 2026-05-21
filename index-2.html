@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alisa Udomvisawakul | Applied AI Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #1a1a1a;
+      --dark:   #2d2d2d;
+      --mid:    #555;
+      --muted:  #888;
+      --light:  #bbb;
+      --border: #e8e8e8;
+      --bg:     #ffffff;
+      --bg-soft:#f9f9f9;
+      --accent: #0969da;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 40px;
+      gap: 32px;
+    }
+    .nav-name {
+      font-size: 14px; font-weight: 600;
+      color: var(--black); text-decoration: none;
+      margin-right: auto;
+    }
+    nav a.nav-link {
+      font-size: 13px; font-weight: 400;
+      color: var(--mid); text-decoration: none;
+      transition: color 0.15s;
+    }
+    nav a.nav-link:hover { color: var(--black); }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 40px 60px;
+    }
+
+    /* ── PROFILE ── */
+    .profile {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .profile-photo {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .profile-info { flex: 1; padding-top: 4px; }
+    .profile-name {
+      font-size: 24px; font-weight: 600;
+      color: var(--black); line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .profile-handle {
+      font-size: 18px; font-weight: 300;
+      color: var(--muted); margin-bottom: 12px;
+    }
+    .profile-tagline {
+      font-size: 13px; color: var(--dark);
+      margin-bottom: 16px; max-width: 520px;
+      line-height: 1.65;
+    }
+    .profile-meta {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      font-size: 13px; color: var(--muted);
+    }
+    .profile-meta span, .profile-meta a {
+      display: flex; align-items: center; gap: 5px;
+      color: var(--muted); text-decoration: none;
+    }
+    .profile-meta a:hover { color: var(--accent); text-decoration: underline; }
+    .profile-meta svg {
+      width: 16px; height: 16px; flex-shrink: 0;
+      fill: currentColor;
+    }
+    .btn-resume {
+      display: inline-block; margin-top: 18px;
+      padding: 6px 16px;
+      font-size: 13px; font-weight: 500;
+      color: var(--black);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-resume:hover {
+      background: var(--bg-soft);
+      border-color: #ccc;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-size: 16px; font-weight: 600;
+      color: var(--black); margin-bottom: 20px;
+    }
+
+    /* ── ABOUT ── */
+    .about-text {
+      font-size: 13px; color: var(--dark);
+      line-height: 1.75; max-width: 680px;
+    }
+    .about-text p { margin-bottom: 12px; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── SKILLS TAGS ── */
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 4px;
+    }
+    .tag {
+      font-size: 12px; font-weight: 500;
+      color: var(--mid);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 24px; }
+    .exp-item { display: flex; gap: 16px; }
+    .exp-dot-col {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 4px;
+    }
+    .exp-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border); border: 2px solid var(--light);
+      flex-shrink: 0;
+    }
+    .exp-line {
+      width: 1px; flex: 1; background: var(--border);
+      margin-top: 4px;
+    }
+    .exp-item:last-child .exp-line { display: none; }
+    .exp-body { flex: 1; padding-bottom: 4px; }
+    .exp-header {
+      display: flex; justify-content: space-between;
+      align-items: baseline; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 2px;
+    }
+    .exp-title {
+      font-size: 13px; font-weight: 600; color: var(--black);
+    }
+    .exp-date {
+      font-size: 12px; color: var(--muted); white-space: nowrap;
+    }
+    .exp-org {
+      font-size: 13px; color: var(--muted); margin-bottom: 8px;
+    }
+    .exp-bullets {
+      list-style: none; display: flex; flex-direction: column; gap: 4px;
+    }
+    .exp-bullets li {
+      font-size: 13px; color: var(--mid);
+      padding-left: 14px; position: relative; line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--light); font-size: 16px; line-height: 1.3;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-list { display: flex; flex-direction: column; gap: 16px; }
+    .edu-item {
+      display: flex; justify-content: space-between;
+      align-items: baseline; flex-wrap: wrap; gap: 4px;
+    }
+    .edu-left {}
+    .edu-degree { font-size: 13px; font-weight: 500; color: var(--black); }
+    .edu-school { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .edu-year { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    /* ── PROJECTS ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .project-card:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .project-name {
+      font-size: 13px; font-weight: 600;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .project-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.55;
+    }
+    .project-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: 11px; color: var(--muted);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 8px;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .pub-card:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .pub-title {
+      font-size: 13px; font-weight: 600;
+      color: var(--accent); margin-bottom: 5px;
+      text-decoration: none; display: block;
+      line-height: 1.5;
+    }
+    .pub-title:hover { text-decoration: underline; }
+    .pub-meta {
+      font-size: 12px; color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .pub-abstract {
+      font-size: 12px; color: var(--mid);
+      line-height: 1.6;
+    }
+    .pub-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .pub-tag {
+      font-size: 11px; color: var(--muted);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 28px 0 0;
+      font-size: 12px; color: var(--light);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .page { padding: 72px 20px 40px; }
+      nav { padding: 0 20px; }
+      .profile { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+      .profile-meta { justify-content: center; }
+      .project-grid { grid-template-columns: 1fr; }
+      nav a.nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#">aor-alisa</a>
+  <a class="nav-link" href="#about">About</a>
+  <a class="nav-link" href="#experience">Experience</a>
+  <a class="nav-link" href="#projects">Projects</a>
+  <a class="nav-link" href="#publications">Publications</a>
+  <a class="nav-link" href="#resume">Resume</a>
+</nav>
+
+<div class="page">
+
+  <!-- PROFILE -->
+  <div class="profile">
+    <img
+      class="profile-photo"
+      src="https://drive.google.com/thumbnail?id=1Z83TtzsZcNNW0q-eK6D7hQvD8QNAWZEe&sz=w300"
+      alt="Alisa Udomvisawakul"
+    />
+    <div class="profile-info">
+      <div class="profile-name">Alisa Udomvisawakul</div>
+      <div class="profile-tagline">
+        Data Scientist · Experience in machine learning, experimentation, and statistical modeling.
+        Ph.D. in Applied Statistics with intersts in AI-driven analytics and predictive modeling.
+      </div>
+      <div class="profile-meta">
+        <span>
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <a href="https://github.com/aor-alisa" target="_blank">aor-alisa</a>
+        </span>
+        <span>
+          <svg viewBox="0 0 16 16"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 4.562v7.688c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4.562L8.42 9.52a.75.75 0 01-.84 0L1.5 4.562zM14.5 3.5h-13l5.5 3.667 7.5-3.667z"/></svg>
+          <a href="mailto:alisa.udom22@gmail.com">alisa.udom22@gmail.com</a>
+        </span>
+        <span>
+          
+      </div>
+      <a class="btn-resume"
+         href="https://drive.google.com/file/d/1RZHI9O-5wsoOVlRQQwXDeJQZpvn8OfpD/view?usp=share_link"
+         target="_blank">
+        📄 View Resume
+      </a>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section" id="about">
+    <div class="section-title">About</div>
+    <div class="about-text">
+      <p>
+        I currently work as a Data Scientist (Analytics Lead) at the City of Virginia Beach, where I develop analytics and AI-driven solutions to support operational decision-making and forecasting.
+      </p>
+      <p>
+        I am interested in applying data science and artificial intelligence to solve real-world problems through scalable, data-driven approaches.
+      </p>
+    </div>
+    <div class="tags" style="margin-top: 16px;">
+      <span class="tag">Python</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">SQL</span>
+      <span class="tag">A/B Testing</span>
+      <span class="tag">Causal Inference</span>
+      <span class="tag">Bayesian Modeling</span>
+      <span class="tag">LLMs & APIs</span>
+      <span class="tag">SHAP / XAI</span>
+      <span class="tag">Time Series</span>
+      <span class="tag">Power BI</span>
+      <span class="tag">AWS</span>
+      <span class="tag">PySpark</span>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section" id="experience">
+    <div class="section-title">Experience</div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-dot-col">
+          <div class="exp-dot"></div>
+          <div class="exp-line"></div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-header">
+            <span class="exp-title">Data Scientist — Analytics Lead</span>
+            <span class="exp-date">2022 – Present</span>
+          </div>
+          <div class="exp-org">City of Virginia Beach, USA</div>
+          <ul class="exp-bullets">
+            <li>Designed AI-driven experimentation frameworks using Claude Skills, APIs, and MCP-style architectures</li>
+            <li>Built predictive ML and forecasting models for risk assessment and resource planning</li>
+            <li>Led statistical experimentation including hypothesis testing and causal analysis</li>
+            <li>Reduced project turnaround time by ~70–80% through scalable Python and SQL pipelines</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot-col">
+          <div class="exp-dot"></div>
+          <div class="exp-line"></div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-header">
+            <span class="exp-title">Data Consultant</span>
+            <span class="exp-date">2018 – 2022</span>
+          </div>
+          <div class="exp-org">University of Virginia, USA</div>
+          <ul class="exp-bullets">
+            <li>Designed A/B testing frameworks to optimize donor engagement strategies</li>
+            <li>Applied causal inference and statistical modeling to identify campaign performance drivers</li>
+            <li>Delivered analytics dashboards supporting evidence-based decision-making</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot-col">
+          <div class="exp-dot"></div>
+          <div class="exp-line"></div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-header">
+            <span class="exp-title">Senior Data Analyst</span>
+            <span class="exp-date">2017 – 2018</span>
+          </div>
+          <div class="exp-org">Merkle Inc., USA</div>
+          <ul class="exp-bullets">
+            <li>Conducted marketing experimentation, A/B testing, and campaign optimization</li>
+            <li>Built reporting dashboards using Python, SQL, and Tableau</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section" id="projects">
+    <div class="section-title">Selected Projects</div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-name">Water Level Forecasting</div>
+        <div class="project-desc">LSTM-based deep learning model to forecast USGS water level changes from high-frequency image data for short-term predictive forecasting.</div>
+        <span class="project-tag">Python · Deep Learning</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Property Tax Prediction</div>
+        <div class="project-desc">Compared OLS, Random Forest, and Gradient Boosting models with SHAP explainability for feature importance analysis in property assessment.</div>
+        <span class="project-tag">scikit-learn · SHAP</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">AI Systems Integration</div>
+        <div class="project-desc">LLM-integrated workflows using Claude Skills, APIs, and AI orchestration frameworks for database-connected analytics applications.</div>
+        <span class="project-tag">LLMs · APIs</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Enterprise Dashboard</div>
+        <div class="project-desc">Power BI dashboards integrated with SQL pipelines for real-time KPI tracking and operational decision-making.</div>
+        <span class="project-tag">Power BI · SQL</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="section" id="publications">
+    <div class="section-title">Publications</div>
+
+    <div class="pub-card">
+      <a class="pub-title"
+         href="https://onlinelibrary.wiley.com/doi/10.1002/hrm.70012"
+         target="_blank">
+        Classification Performance of Supervised Machine Learning to Predict Human Resource Management Outcomes: A Meta-Analysis Using Cross-Classified Multilevel Modeling
+      </a>
+      <div class="pub-meta">
+        Vanhove, A. J., &amp; <strong>Udomvisawakul, A.</strong> &nbsp;·&nbsp;
+        <em>Human Resource Management</em> (Wiley) &nbsp;·&nbsp; Published July 28, 2025 &nbsp;·&nbsp;
+        DOI: 10.1002/hrm.70012
+      </div>
+      <div class="pub-abstract">
+        Meta-analyzed classification performance of supervised machine learning models applied in HR contexts using signal detection theory. The study contained 6,605 effect sizes cross-nested by study (N=249) and unique dataset (N=152), employing cross-classified multilevel modeling to examine the effects of algorithm type, sample size, number of predictors, outcome classes, and class imbalance on model performance.
+      </div>
+      <div class="pub-tags">
+        <span class="pub-tag">Machine Learning</span>
+        <span class="pub-tag">Meta-Analysis</span>
+        <span class="pub-tag">HRM</span>
+        <span class="pub-tag">Multilevel Modeling</span>
+        <span class="pub-tag">Signal Detection Theory</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-left">
+          <div class="edu-degree">M.S. Data Science — Machine Learning Concentration</div>
+          <div class="edu-school">Old Dominion University</div>
+        </div>
+        <div class="edu-year">Expected 2028</div>
+      </div>
+      <div class="edu-item" style="align-items: flex-start;">
+        <div class="edu-left">
+          <div class="edu-degree">Ph.D. Applied Statistics & Research Methods</div>
+          <div class="edu-school">University of Northern Colorado</div>
+          <div class="edu-school" style="margin-top:4px; font-style:italic;">
+            Dissertation: <em>Applying Bayesian Growth Modeling in Machine Learning for Longitudinal Data</em>
+          </div>
+        </div>
+        <div class="edu-year">2021</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-left">
+          <div class="edu-degree">M.B.A.</div>
+          <div class="edu-school">Texas A&M University, Corpus Christi</div>
+        </div>
+        <div class="edu-year">2010</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUME -->
+  <div class="section" id="resume">
+    <div class="section-title">Resume</div>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">
+      Full resume with detailed experience, skills, and project history.
+    </p>
+    <a class="btn-resume"
+       href="https://drive.google.com/file/d/1RZHI9O-5wsoOVlRQQwXDeJQZpvn8OfpD/view?usp=share_link"
+       target="_blank">
+      📄 View Resume (PDF)
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2025 Alisa Udomvisawakul &nbsp;·&nbsp;
+      <a href="https://github.com/aor-alisa" target="_blank">github.com/aor-alisa</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:alisa.udom22@gmail.com">alisa.udom22@gmail.com</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
